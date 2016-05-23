@@ -1,5 +1,6 @@
 import {Page, NavController} from 'ionic-angular';
 import {AddItemPage} from '../add-item/add-item';
+import {ItemDetailPage} from '../item-detail/item-detail';
 
 
 @Page({
@@ -25,7 +26,8 @@ export class HomePage {
     this.items.push(item);
   }
 
-  viewItem(){
-
+  viewItem(item){
+    console.log(item);
+    this.nav.push(ItemDetailPage, {item: item});
   }
 }
