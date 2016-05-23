@@ -27,7 +27,6 @@ export class HomePage {
   }
 
   viewItem(item){
-    console.log(item);
     this.nav.push(ItemDetailPage, {item: item});
   }
 }
