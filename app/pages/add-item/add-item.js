@@ -30,5 +30,4 @@ export class AddItemPage {
     this.nav.pop();
 
   }
-
 }

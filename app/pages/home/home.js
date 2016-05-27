@@ -26,9 +26,7 @@ export class HomePage {
         this.items = JSON.parse(todos);
         });
       }
-
     });
-
   }
 
   addItem(){
