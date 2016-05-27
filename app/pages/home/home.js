@@ -1,7 +1,8 @@
 import {Page, NavController} from 'ionic-angular';
 import {AddItemPage} from '../add-item/add-item';
 import {ItemDetailPage} from '../item-detail/item-detail';
-
+import {Data} from '../../providers/data/data';
+import {NgZone} from '@angular/core';
 
 @Page({
   templateUrl: 'build/pages/home/home.html'
@@ -9,13 +10,25 @@ import {ItemDetailPage} from '../item-detail/item-detail';
 export class HomePage {
 
   static get parameters(){
-    return [[NavController]]
+    return [[NavController], [Data], [NgZone]]
   }
 
-  constructor(nav) {
+  constructor(nav, dataService, zone) {
     this.nav = nav;
-
+    this.dataService = dataService;
+    this.zone = zone;
     this.items = [];
+
+    this.dataService.getData().then((todos) => {
+
+      if(todos){
+      this.zone.run(() => {
+        this.items = JSON.parse(todos);
+        });
+      }
+
+    });
+
   }
 
   addItem(){
@@ -24,6 +37,7 @@ export class HomePage {
 
   saveItem(item){
     this.items.push(item);
+    this.dataService.save(this.items);
   }
 
   viewItem(item){
